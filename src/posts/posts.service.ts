@@ -19,9 +19,12 @@ export class PostsService {
    */
   async create(createPostDto: CreatePostDto): Promise<void> {
     const { title, content } = createPostDto;
+    let password: string;
 
-    const saltOrRounds = 10;
-    const password = await bcrypt.hash(createPostDto.password, saltOrRounds);
+    if (createPostDto.password) {
+      const saltOrRounds = 10;
+      password = await bcrypt.hash(createPostDto.password, saltOrRounds);
+    }
 
     const post = await this.postRepository.create({
       title,
