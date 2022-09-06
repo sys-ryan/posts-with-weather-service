@@ -8,7 +8,6 @@ import {
   Delete,
   UseGuards,
   ParseIntPipe,
-  HttpCode,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -50,7 +49,6 @@ export class PostsController {
 
   @Delete(':id')
   @UseGuards(SecretPostGuard)
-  @HttpCode(204)
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.postsService.remove(id);
   }
