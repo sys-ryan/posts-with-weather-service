@@ -33,6 +33,7 @@ export class PostsService {
 
     const savedPost = await this.postRepository.save(post);
 
+    // 게시글을 생성하는 시점의 날씨정보 저장
     await this.weatherService.saveCurrentWeather(
       savedPost.id,
       lat.toString(),
