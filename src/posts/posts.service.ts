@@ -5,11 +5,13 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 import * as bcrypt from 'bcrypt';
+import { WeatherService } from 'src/weather/weather.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(Post) private postRepository: Repository<Post>,
+    private weatherService: WeatherService,
   ) {}
 
   /**
