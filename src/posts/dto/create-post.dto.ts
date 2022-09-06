@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Matches,
@@ -20,4 +21,10 @@ export class CreatePostDto {
   @IsString()
   @Matches(/^(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/)
   password: string;
+
+  @IsNumber()
+  lat: number;
+
+  @IsNumber()
+  lng: number;
 }
