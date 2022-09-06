@@ -38,14 +38,30 @@ export class PostsService {
    * 게시글 리스트를 조회합니다.
    * @returns Post 배열
    */
-  async findAll(): Promise<Post[]> {
-    const users = await this.postRepository.find({
+  async findAll(offset: number, size: number): Promise<any> {
+    const posts = await this.postRepository.find({
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true,
+        updatedAt: true,
+      },
       order: {
         createdAt: 'DESC', // 게시글을 최신 글 순서대로 확인
       },
+      skip: offset,
+      take: size,
     });
 
-    return users;
+    return {
+      data: posts,
+      meta: {
+        offset,
+        size,
+        returnedPostCount: posts.length,
+      },
+    };
   }
 
   /**
