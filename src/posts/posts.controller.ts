@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -33,23 +32,20 @@ export class PostsController {
 
   @Serialize(PostResponseDto)
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.postsService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.postsService.findOne(+id);
   }
 
   @Serialize(PostResponseDto)
   @Patch(':id')
   @UseGuards(SecretPostGuard)
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updatePostDto: UpdatePostDto,
-  ) {
-    return this.postsService.update(id, updatePostDto);
+  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+    return this.postsService.update(+id, updatePostDto);
   }
 
   @Delete(':id')
   @UseGuards(SecretPostGuard)
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.postsService.remove(id);
+  remove(@Param('id') id: string) {
+    return this.postsService.remove(+id);
   }
 }
