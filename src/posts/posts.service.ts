@@ -39,7 +39,11 @@ export class PostsService {
    * @returns Post 배열
    */
   async findAll(): Promise<Post[]> {
-    const users = await this.postRepository.find();
+    const users = await this.postRepository.find({
+      order: {
+        createdAt: 'DESC', // 게시글을 최신 글 순서대로 확인
+      },
+    });
 
     return users;
   }
