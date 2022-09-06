@@ -17,7 +17,7 @@ export class Post {
   @Column({ type: 'varchar', length: 200 })
   content: string;
 
-  @Column()
+  @Column({ default: null })
   password: string;
 
   @CreateDateColumn({ name: 'created_at' })
