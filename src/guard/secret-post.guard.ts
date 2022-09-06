@@ -16,7 +16,11 @@ export class SecretPostGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const id = +request.params.id;
-    const { password } = request.headers; // 패스워드는 headers.password로 제출됩니다.
+    const { password } = request.body; // 패스워드는 request.body.password로 제출됩니다.
+
+    if (!password) {
+      return false;
+    }
 
     // 제출된 패스워드가 Post에 저장된 패스워드와 일치하는지 여부를 확인합니다.
     const isMatch = await this.validatePostPassword(id, password);
