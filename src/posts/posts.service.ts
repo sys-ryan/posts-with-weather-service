@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -23,29 +23,12 @@ export class PostsService {
     return;
   }
 
-  /**
-   * 게시글 리스트를 조회합니다.
-   * @returns Post 배열
-   */
-  async findAll(): Promise<Post[]> {
-    const users = await this.postRepository.find();
-
-    return users;
+  findAll() {
+    return `This action returns all posts`;
   }
 
-  /**
-   * 게시글 id로 게시글을 조회합니다.
-   * @param id 게시글 id
-   * @returns Post
-   */
-  async findOne(id: number): Promise<Post> {
-    const post = await this.postRepository.findOne({ where: { id } });
-
-    if (!post) {
-      throw new NotFoundException('Post not foudn.');
-    }
-
-    return post;
+  findOne(id: number) {
+    return `This action returns a #${id} post`;
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
