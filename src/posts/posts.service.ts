@@ -20,7 +20,7 @@ export class PostsService {
    * @returns void
    */
   async create(createPostDto: CreatePostDto): Promise<void> {
-    const { title, content } = createPostDto;
+    const { title, content, lat, lng } = createPostDto;
 
     const saltOrRounds = 10;
     const password = await bcrypt.hash(createPostDto.password, saltOrRounds);
@@ -31,7 +31,13 @@ export class PostsService {
       password,
     });
 
-    await this.postRepository.save(post);
+    const savedPost = await this.postRepository.save(post);
+
+    await this.weatherService.saveCurrentWeather(
+      savedPost.id,
+      lat.toString(),
+      lng.toString(),
+    );
 
     return;
   }
@@ -49,6 +55,7 @@ export class PostsService {
         createdAt: true,
         updatedAt: true,
       },
+      relations: ['weather'],
       order: {
         createdAt: 'DESC', // 게시글을 최신 글 순서대로 확인
       },
