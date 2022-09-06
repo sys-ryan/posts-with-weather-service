@@ -36,7 +36,6 @@ export class PostsController {
     return this.postsService.findOne(+id);
   }
 
-  @Serialize(PostResponseDto)
   @Patch(':id')
   @UseGuards(SecretPostGuard)
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
