@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { Serialize } from 'src/interceptors/serialize.interceptor.dto';
+import { PostResponseDto } from './dto/post-response.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -12,11 +22,13 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
+  @Serialize(PostResponseDto)
   @Get()
   findAll() {
     return this.postsService.findAll();
   }
 
+  @Serialize(PostResponseDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(+id);
