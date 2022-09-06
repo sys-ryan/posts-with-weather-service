@@ -92,20 +92,7 @@ export class PostsService {
     return updatedPost;
   }
 
-  /**
-   * 제출된 id를 가지는 게시글을 삭제합니다.
-   * @param id 개시글 id
-   * @returns void
-   */
-  async remove(id: number): Promise<void> {
-    const post = await this.postRepository.findOne({ where: { id } });
-
-    // 제출된 id를 가지는 게시글이 없는 경우 예외 처리
-    if (!post) {
-      throw new NotFoundException('Post not found.');
-    }
-
-    await this.postRepository.remove(post);
-    return;
+  remove(id: number) {
+    return `This action removes a #${id} post`;
   }
 }
