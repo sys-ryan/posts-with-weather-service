@@ -9,6 +9,7 @@ import {
   UseGuards,
   ParseIntPipe,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -26,10 +27,11 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
-  @Serialize(PostResponseDto)
   @Get()
-  findAll() {
-    return this.postsService.findAll();
+  findAll(@Query('offset') offset: number, @Query('size') size: number) {
+    if (!offset) offset = 0;
+    if (!size) size = 20;
+    return this.postsService.findAll(+offset, +size);
   }
 
   @Serialize(PostResponseDto)
