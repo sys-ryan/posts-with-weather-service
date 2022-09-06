@@ -59,8 +59,28 @@ export class PostsService {
     return post;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
+    const post = await this.postRepository.findOne({ where: { id } });
+    if (!post) {
+      throw new NotFoundException('Post not found.');
+    }
+
+    if (updatePostDto.title) {
+      post.title = updatePostDto.title;
+    }
+    if (updatePostDto.content) {
+      post.content = updatePostDto.content;
+    }
+    if (updatePostDto.password) {
+      const saltOrRounds = 10;
+      const password = await bcrypt.hash(updatePostDto.password, saltOrRounds);
+      post.password = password;
+    }
+
+    await this.postRepository.save(post);
+
+    const updatedPost = await this.postRepository.findOne({ where: { id } });
+    return updatedPost;
   }
 
   remove(id: number) {
