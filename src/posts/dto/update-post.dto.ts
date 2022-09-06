@@ -1,26 +1,4 @@
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Matches,
-  MaxLength,
-} from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreatePostDto } from './create-post.dto';
 
-export class UpdatePostDto {
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(20)
-  @IsOptional()
-  title: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(200)
-  @IsOptional()
-  content: string;
-
-  @IsString()
-  @Matches(/^(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/)
-  @IsOptional()
-  password: string;
-}
+export class UpdatePostDto extends PartialType(CreatePostDto) {}
