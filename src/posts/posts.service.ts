@@ -59,8 +59,16 @@ export class PostsService {
     return post;
   }
 
+  /**
+   * 제출된 id를 가진 게시글을 수정합니다.
+   * @param id 게시글 id
+   * @param updatePostDto { title, content, password }
+   * @returns 수정된 게시글
+   */
   async update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
     const post = await this.postRepository.findOne({ where: { id } });
+
+    // 제출된 id를 가지는 게시글이 없을시 예외 처리
     if (!post) {
       throw new NotFoundException('Post not found.');
     }
@@ -79,6 +87,7 @@ export class PostsService {
 
     await this.postRepository.save(post);
 
+    // 수정된 게시글을 반환
     const updatedPost = await this.postRepository.findOne({ where: { id } });
     return updatedPost;
   }
