@@ -17,7 +17,6 @@ export class CreatePostDto {
   @MaxLength(200)
   content: string;
 
-  @IsOptional()
   @IsString()
   @Matches(/^(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/)
   password: string;
