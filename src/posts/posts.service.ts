@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PostsService {
@@ -18,20 +17,7 @@ export class PostsService {
    * @returns void
    */
   async create(createPostDto: CreatePostDto): Promise<void> {
-    const { title, content } = createPostDto;
-    let password: string;
-
-    if (createPostDto.password) {
-      const saltOrRounds = 10;
-      password = await bcrypt.hash(createPostDto.password, saltOrRounds);
-    }
-
-    const post = await this.postRepository.create({
-      title,
-      content,
-      password,
-    });
-
+    const post = await this.postRepository.create(createPostDto);
     await this.postRepository.save(post);
 
     return;
