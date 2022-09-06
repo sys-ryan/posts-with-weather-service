@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -29,5 +30,6 @@ export class Post {
   updatedAt: Date;
 
   @OneToOne(() => Weather, (weather) => weather.post)
+  @JoinColumn()
   weather: Weather;
 }
