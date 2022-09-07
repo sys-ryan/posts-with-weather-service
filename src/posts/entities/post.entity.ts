@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Weather } from 'src/weather/entities/weather.entity';
+import { Weather } from '../../weather/entities/weather.entity';
 import {
   Column,
   CreateDateColumn,
