@@ -118,9 +118,9 @@ post-with-weather-service/
 - Swagger Documentation 코드 추가
 - 프로젝트 전체 주석 확인 및 보충
 - Readme.md 작성
-- Weather Service Unit 테스트 // 작업중
-- Posts Service Unit 테스트 // 작업중
-- e2e 테스트 // 작업중
+- Weather Service Unit 테스트
+- Posts Service Unit 테스트
+- e2e 테스트
 - 배포 // 작업중
 
 # 테스트
@@ -131,11 +131,31 @@ post-with-weather-service/
 
 #### Weather service
 
-// 내역 입력
+- 날씨 정보를 Weather API로부터 fetch 하는지 검증 (fetchWeather)
+- 날씨 정보를 정상적으로 저장하는지 검증 (saveCurrentWeather)
 
 #### Posts service
 
-// 내역 입력
+- 게시글 생성
+
+  - 게시글 생성 성공 검증 (날씨 정보 포함 확인)
+  - 게시글 생성시 비밀번호 암호화 검증
+  - 게시글 제목, 내용, 비밀번호 제약사항을 만족하지 않을 경우 생성 실패 검증
+
+- 게시글 조회
+
+  - 게시글 리스트 조회 성공 검증
+  - 게시글 조회 성공 검증
+  - 존재하지 않는 게시글 id로 조회시 Exception 검증
+
+- 게시글 수정
+
+  - 게시글 수정 성공 검증
+  - 존재하지 않는 게시글 id로 수정시 Exception 검증
+
+- 게시글 삭제
+  - 게시글 삭제 성공 검증
+  - 존재하지 않는 게시글 id로 삭제시 Exception 검증
 
 ### 테스트 결과
 
@@ -146,6 +166,32 @@ post-with-weather-service/
 #### Posts Service
 
 // 캡쳐 이미지
+
+## e2e Test
+
+### 테스트 커버리지
+
+- 게시글 저장
+
+  - title, content에 이모지 저장 검증
+  - title 20자 이상일 경우 생성 실패 검증
+  - content 200자 이상일 경우 생성 실패 검증
+  - 비밀번호 정책 (6자이상 숫자 1개이상 반드시 포함) 위반시 생성 실패 검증
+
+- 게시글 조회
+
+  - 게시글 리스트 조회시 default pagenation option 적용 검증
+
+- 게시글 수정
+
+  - 잘못된 비밀번호로 게시글 수정 요청시 exception 검증
+
+- 게시글 삭제
+  - 잘못된 비밀번호로 게시글 삭제 요청시 exception 검증
+
+### 테스트 결과
+
+// 이미지
 
 # 서비스 배포
 
