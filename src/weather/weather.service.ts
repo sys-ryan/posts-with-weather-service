@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { lastValueFrom } from 'rxjs';
-import { Posts } from 'src/posts/entities/post.entity';
+import { Posts } from '../posts/entities/post.entity';
 import { Repository } from 'typeorm';
 import { Weather } from './entities/weather.entity';
 
