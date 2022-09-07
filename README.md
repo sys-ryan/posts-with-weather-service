@@ -53,7 +53,7 @@
 
 swagger를 사용하여 제작한 API Docs
 
-[👉 Swagger Docs 바로가기]() /// 수정 필요
+[👉 Swagger Docs 바로가기](https://app.swaggerhub.com/apis-docs/SYSRYAN0902/posts-with-weather-service-docs/1.0)
 
 # 구현 과정
 
@@ -70,11 +70,6 @@ swagger를 사용하여 제작한 API Docs
 > 데이터베이스는 AWS RDS - mysql로 생성했습니다.
 
 <img width="790" alt="스크린샷 2022-09-07 오후 12 19 40" src="https://user-images.githubusercontent.com/63445753/188781262-29a75e5a-5177-4c4c-bb07-76eef6c89c49.png">
-
-
-
-
-
 
 ### 폴더 구조
 
@@ -170,8 +165,7 @@ post-with-weather-service/
 
 #### Posts Service
 
-<img width="615" alt="스크린샷 2022-09-07 오후 7 15 05" src="https://user-images.githubusercontent.com/63445753/188853775-ee31388a-cbea-41ad-a682-4de0f8c60b3a.png">  
-
+<img width="615" alt="스크린샷 2022-09-07 오후 7 15 05" src="https://user-images.githubusercontent.com/63445753/188853775-ee31388a-cbea-41ad-a682-4de0f8c60b3a.png">
 
 ## e2e Test
 
@@ -198,7 +192,6 @@ post-with-weather-service/
 ### 테스트 결과
 
 <img width="795" alt="스크린샷 2022-09-07 오후 7 13 36" src="https://user-images.githubusercontent.com/63445753/188853406-7738688e-b796-4a26-ad48-cecf627fe0a9.png">
-
 
 # 서비스 배포
 
