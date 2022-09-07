@@ -110,20 +110,20 @@ post-with-weather-service/
 
 ## 작업 내역 🧑‍💻
 
-- 서버 초기 세팅
-- 게시글 생성, 조회 API 구현
-- 게시글 비밀번호 기능 추가
-- 게시글 수정/삭제 기능 구현
-- 게시글 비밀번호 Guard 수정
-⭐️ 게시글 조회 기능 추가 구현
-⭐️ 게시글에 사용자가 게시글을 업로드한 시점의 날씨 포함
-- Swagger Documentation 코드 추가
-- 프로젝트 전체 주석 확인 및 보충
-- Readme.md 작성
-⭐️ Weather Service Unit 테스트
-⭐️ Posts Service Unit 테스트
-⭐️ e2e 테스트
-⭐️ 배포
+✔️ 서버 초기 세팅  
+✔️ 게시글 생성, 조회 API 구현  
+✔️ 게시글 비밀번호 기능 추가  
+✔️ 게시글 수정/삭제 기능 구현  
+✔️ 게시글 비밀번호 Guard 수정   
+⭐️ 게시글 조회 기능 추가 구현  
+⭐️ 게시글에 사용자가 게시글을 업로드한 시점의 날씨 포함  
+✔️ Swagger Documentation 코드 추가  
+✔️ 프로젝트 전체 주석 확인 및 보충  
+✔️ Readme.md 작성  
+⭐️ Weather Service Unit 테스트  
+⭐️ Posts Service Unit 테스트  
+⭐️ e2e 테스트  
+⭐️ 배포  
 
 # 테스트 🧪
 
