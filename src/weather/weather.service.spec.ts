@@ -87,7 +87,7 @@ jest.mock('rxjs', () => {
   };
 });
 
-describe('WeatherService', () => {
+describe('WeatherService Unit Test', () => {
   let service: WeatherService;
   let weatherRepository: Repository<Weather>;
   let postRepository: Repository<Posts>;
@@ -124,7 +124,7 @@ describe('WeatherService', () => {
     expect(service).toBeDefined();
   });
 
-  it('날씨 정보를 Weather API로부터 fecth 하는지 검증', async () => {
+  it('날씨 정보를 Weather API로부터 fetch 하는지 검증', async () => {
     const data = await service.fetchWeather('30', '127');
 
     expect(data).toBeDefined();
