@@ -11,7 +11,7 @@ import {
   HttpCode,
   Query,
 } from '@nestjs/common';
-import { PostsList, PostsService } from './posts.service';
+import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor.dto';

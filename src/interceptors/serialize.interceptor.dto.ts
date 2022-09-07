@@ -12,11 +12,17 @@ interface ClassConstructor {
   new (...args: any[]): {};
 }
 
+/** UseInterceptor 사용을 간결하게 만들기 위한 커스텀 데코레이터 */
 export function Serialize(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
+/** Response data serialization을 위한 Interceptor */
 export class SerializeInterceptor implements NestInterceptor {
+  /**
+   *
+   * @param dto Serializaiton rule이 정의된 DTO Class
+   */
   constructor(private dto: any) {}
 
   intercept(
