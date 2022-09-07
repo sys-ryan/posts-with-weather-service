@@ -14,9 +14,7 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor.dto';
-import { PostResponseDto } from './dto/post-response.dto';
-import { SecretPostGuard } from 'src/guard/secret-post.guard';
+import { SecretPostGuard } from '../guard/secret-post.guard';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
@@ -69,7 +67,6 @@ export class PostsController {
     return this.postsService.findOne(id);
   }
 
-  @Serialize(PostResponseDto)
   @Patch(':id')
   @UseGuards(SecretPostGuard)
   update(
