@@ -166,11 +166,12 @@ post-with-weather-service/
 
 #### Weather service
 
-// 캡쳐 이미지
+<img width="534" alt="스크린샷 2022-09-07 오후 7 14 35" src="https://user-images.githubusercontent.com/63445753/188853738-7496f78c-1662-4bf3-a7fa-ba001976abec.png">
 
 #### Posts Service
 
-// 캡쳐 이미지
+<img width="615" alt="스크린샷 2022-09-07 오후 7 15 05" src="https://user-images.githubusercontent.com/63445753/188853775-ee31388a-cbea-41ad-a682-4de0f8c60b3a.png">  
+
 
 ## e2e Test
 
@@ -196,7 +197,8 @@ post-with-weather-service/
 
 ### 테스트 결과
 
-// 이미지
+<img width="795" alt="스크린샷 2022-09-07 오후 7 13 36" src="https://user-images.githubusercontent.com/63445753/188853406-7738688e-b796-4a26-ad48-cecf627fe0a9.png">
+
 
 # 서비스 배포
 
