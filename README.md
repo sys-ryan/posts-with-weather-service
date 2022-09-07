@@ -198,3 +198,14 @@ post-with-weather-service/
 > 배포 정보 작성
 
 👉 https://posts-with-weather-service.herokuapp.com/api/v1
+
+### Heroku 콘솔 
+<img width="1192" alt="스크린샷 2022-09-07 오후 8 05 36" src="https://user-images.githubusercontent.com/63445753/188863809-856d399d-db2e-443c-91b2-5223197ca23b.png">
+
+### GET /
+<img width="1192" alt="스크린샷 2022-09-07 오후 8 04 19" src="https://user-images.githubusercontent.com/63445753/188863934-47e39a7a-cb09-4140-b817-85fcf462c1c4.png">
+
+### GET /posts
+<img width="2032" alt="스크린샷 2022-09-07 오후 8 04 30" src="https://user-images.githubusercontent.com/63445753/188863986-bd380c2d-1702-4f33-8470-e4f26734f22c.png">
+ 
+
