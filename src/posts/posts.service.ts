@@ -7,6 +7,15 @@ import { Posts } from './entities/post.entity';
 import * as bcrypt from 'bcrypt';
 import { WeatherService } from 'src/weather/weather.service';
 
+export interface PostsList {
+  data: Posts[];
+  meta: {
+    offset: number;
+    size: number;
+    returnedPostCount: number;
+  };
+}
+
 @Injectable()
 export class PostsService {
   constructor(
@@ -47,7 +56,7 @@ export class PostsService {
    * 게시글 리스트를 조회합니다.
    * @returns Post 배열
    */
-  async findAll(offset: number, size: number): Promise<any> {
+  async findAll(offset: number, size: number): Promise<PostsList> {
     const posts = await this.postRepository.find({
       select: {
         id: true,
@@ -71,7 +80,7 @@ export class PostsService {
         size,
         returnedPostCount: posts.length,
       },
-    };
+    } as PostsList;
   }
 
   /**
@@ -80,7 +89,17 @@ export class PostsService {
    * @returns Post
    */
   async findOne(id: number): Promise<Posts> {
-    const post = await this.postRepository.findOne({ where: { id } });
+    const post = await this.postRepository.findOne({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      relations: ['weather'],
+    });
 
     if (!post) {
       throw new NotFoundException('Post not foudn.');
