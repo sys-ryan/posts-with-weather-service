@@ -61,9 +61,11 @@ jest.mock('rxjs', () => {
       return {
         data: {
           current: {
-            text: 'Sunny',
-            icon: '//cdn.weatherapi.com/weather/64x64/day/113.png',
-            code: 1000,
+            condition: {
+              text: 'Sunny',
+              icon: '//cdn.weatherapi.com/weather/64x64/day/113.png',
+              code: 1000,
+            },
           },
         },
       };
@@ -108,5 +110,6 @@ describe('WeatherService', () => {
 
   it('날씨 정보를 Weather API로부터 성공적으로 fecth 한다.', async () => {
     const data = await service.fetchWeather('30', '127');
+    console.log(data);
   });
 });
