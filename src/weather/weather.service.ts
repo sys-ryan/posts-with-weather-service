@@ -29,7 +29,7 @@ export class WeatherService {
    * 요청된 latitude, longitude 위치의 현재 날씨를 조회합니다.
    * @param lat 위도
    * @param lng 경도
-   * @returns 현재 날씾 정보
+   * @returns 현재 날씨 정보
    */
   async fetchWeather(lat: string, lng: string) {
     const url = `${this.baseUrl}current.json?key=${this.key}&q=${lat},${lng}&aqi=no`;
