@@ -1,14 +1,9 @@
 import { HttpService } from '@nestjs/axios';
-import {
-  Injectable,
-  NotFoundException,
-  ServiceUnavailableException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { string } from 'joi';
-import { lastValueFrom, map } from 'rxjs';
-import { Post } from 'src/posts/entities/post.entity';
+import { lastValueFrom } from 'rxjs';
+import { Posts } from 'src/posts/entities/post.entity';
 import { Repository } from 'typeorm';
 import { Weather } from './entities/weather.entity';
 
@@ -22,7 +17,7 @@ interface Condition {
 export class WeatherService {
   constructor(
     @InjectRepository(Weather) private weatherRepository: Repository<Weather>,
-    @InjectRepository(Post) private postRepository: Repository<Post>,
+    @InjectRepository(Posts) private postRepository: Repository<Posts>,
     private configService: ConfigService,
     private httpService: HttpService,
   ) {}
