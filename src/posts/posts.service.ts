@@ -59,6 +59,7 @@ export class PostsService {
   async findAll(offset: number, size: number): Promise<PostsList> {
     const posts = await this.postRepository.find({
       select: {
+        // password 컬럼 제외
         id: true,
         title: true,
         content: true,
@@ -92,6 +93,7 @@ export class PostsService {
     const post = await this.postRepository.findOne({
       where: { id },
       select: {
+        // password 컬럼 제외
         id: true,
         title: true,
         content: true,
@@ -129,6 +131,7 @@ export class PostsService {
       post.content = updatePostDto.content;
     }
     if (updatePostDto.password) {
+      // 수정된 게시글 비밀번호 암호화
       const saltOrRounds = 10;
       const password = await bcrypt.hash(updatePostDto.password, saltOrRounds);
       post.password = password;

@@ -7,6 +7,9 @@ import {
   MaxLength,
 } from 'class-validator';
 
+/**
+ * 게시글 수정을 위한 DTO
+ */
 export class UpdatePostDto {
   @ApiProperty({ description: '게시글 제목' })
   @IsString()

@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Posts } from 'src/posts/entities/post.entity';
 import { Weather } from './entities/weather.entity';
-import { WeatherController } from './weather.controller';
 import { WeatherService } from './weather.service';
 
 @Module({
@@ -13,7 +12,6 @@ import { WeatherService } from './weather.service';
     ConfigModule,
     HttpModule,
   ],
-  controllers: [WeatherController],
   providers: [WeatherService],
   exports: [WeatherService],
 })
