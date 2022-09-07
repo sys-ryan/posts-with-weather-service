@@ -69,6 +69,8 @@ swagger를 사용하여 제작한 API Docs
 
 > 데이터베이스는 AWS RDS - mysql로 생성했습니다.
 
+\*게시글 제목과 내용에 이모지를 저장할 수 있다는 조건을 만족하기 위해 데이터베이스의 character set을 `utf8mb4`로 설정하였습니다.
+
 <img width="790" alt="스크린샷 2022-09-07 오후 12 19 40" src="https://user-images.githubusercontent.com/63445753/188781262-29a75e5a-5177-4c4c-bb07-76eef6c89c49.png">
 
 ### 폴더 구조
@@ -199,13 +201,14 @@ post-with-weather-service/
 
 👉 https://posts-with-weather-service.herokuapp.com/api/v1
 
-### Heroku 콘솔 
+### Heroku 콘솔
+
 <img width="1192" alt="스크린샷 2022-09-07 오후 8 05 36" src="https://user-images.githubusercontent.com/63445753/188863809-856d399d-db2e-443c-91b2-5223197ca23b.png">
 
 ### GET /
+
 <img width="1192" alt="스크린샷 2022-09-07 오후 8 04 19" src="https://user-images.githubusercontent.com/63445753/188863934-47e39a7a-cb09-4140-b817-85fcf462c1c4.png">
 
 ### GET /posts
-<img width="2032" alt="스크린샷 2022-09-07 오후 8 04 30" src="https://user-images.githubusercontent.com/63445753/188863986-bd380c2d-1702-4f33-8470-e4f26734f22c.png">
- 
 
+<img width="2032" alt="스크린샷 2022-09-07 오후 8 04 30" src="https://user-images.githubusercontent.com/63445753/188863986-bd380c2d-1702-4f33-8470-e4f26734f22c.png">
