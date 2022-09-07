@@ -121,7 +121,7 @@ post-with-weather-service/
 - Weather Service Unit 테스트
 - Posts Service Unit 테스트
 - e2e 테스트
-- 배포 // 작업중
+- 배포
 
 # 테스트
 
@@ -197,4 +197,4 @@ post-with-weather-service/
 
 > 배포 정보 작성
 
-👉 //url
+👉 https://posts-with-weather-service.herokuapp.com/api/v1
