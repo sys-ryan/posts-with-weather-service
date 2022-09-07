@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { of, lastValueFrom } from 'rxjs';
+import { of } from 'rxjs';
 import { Repository } from 'typeorm';
 import { Posts } from '../posts/entities/post.entity';
 import { Weather } from './entities/weather.entity';
@@ -18,11 +18,12 @@ const mockWeatherRepository = () => {
       weathers.push(weather);
       return weather;
     }),
+    find: jest.fn().mockImplementation(() => weathers),
   };
 };
 
 const mockPostRepository = () => {
-  const posts: Posts[] = [
+  const posts: Partial<Posts>[] = [
     {
       id: 1,
       title: 'test post',
@@ -30,12 +31,25 @@ const mockPostRepository = () => {
       password: 'tester123',
       createdAt: new Date(),
       updatedAt: new Date(),
-      weather: {} as Weather,
     },
   ];
 
   return {
-    findOne: jest.fn(),
+    findOne: jest.fn().mockImplementation((query) => {
+      const where = query.where;
+
+      let existingPost: Partial<Posts>;
+
+      if (where.id) {
+        posts.forEach((post) => {
+          if (post.id === where.id) {
+            existingPost = post;
+          }
+        });
+      }
+
+      return existingPost;
+    }),
   };
 };
 
@@ -102,14 +116,26 @@ describe('WeatherService', () => {
     }).compile();
 
     service = module.get<WeatherService>(WeatherService);
+    weatherRepository = module.get(getRepositoryToken(Weather));
+    postRepository = module.get(getRepositoryToken(Posts));
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('날씨 정보를 Weather API로부터 성공적으로 fecth 한다.', async () => {
+  it('날씨 정보를 Weather API로부터 fecth 하는지 검증', async () => {
     const data = await service.fetchWeather('30', '127');
-    console.log(data);
+
+    expect(data).toBeDefined();
+    expect(data.text).toEqual('Sunny');
+  });
+
+  it('날씨 정보를 저장 성공 검증', async () => {
+    await service.saveCurrentWeather(1, '30', '127');
+    const weathers = await weatherRepository.find();
+
+    expect(weathers).toHaveLength(1);
+    expect(weathers[0].text).toEqual('Sunny');
   });
 });
