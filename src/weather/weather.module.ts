@@ -1,15 +1,15 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Post } from 'src/posts/entities/post.entity';
+import { Posts } from 'src/posts/entities/post.entity';
 import { Weather } from './entities/weather.entity';
 import { WeatherController } from './weather.controller';
 import { WeatherService } from './weather.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Weather, Post]),
+    TypeOrmModule.forFeature([Weather, Posts]),
     ConfigModule,
     HttpModule,
   ],

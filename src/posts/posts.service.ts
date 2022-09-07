@@ -3,14 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { Post } from './entities/post.entity';
+import { Posts } from './entities/post.entity';
 import * as bcrypt from 'bcrypt';
 import { WeatherService } from 'src/weather/weather.service';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(Post) private postRepository: Repository<Post>,
+    @InjectRepository(Posts) private postRepository: Repository<Posts>,
     private weatherService: WeatherService,
   ) {}
 
@@ -79,7 +79,7 @@ export class PostsService {
    * @param id 게시글 id
    * @returns Post
    */
-  async findOne(id: number): Promise<Post> {
+  async findOne(id: number): Promise<Posts> {
     const post = await this.postRepository.findOne({ where: { id } });
 
     if (!post) {
@@ -95,7 +95,7 @@ export class PostsService {
    * @param updatePostDto { title, content, password }
    * @returns 수정된 게시글
    */
-  async update(id: number, updatePostDto: UpdatePostDto): Promise<Post> {
+  async update(id: number, updatePostDto: UpdatePostDto): Promise<Posts> {
     const post = await this.postRepository.findOne({ where: { id } });
 
     // 제출된 id를 가지는 게시글이 없을시 예외 처리

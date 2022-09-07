@@ -1,11 +1,5 @@
-import { Post } from 'src/posts/entities/post.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Posts } from 'src/posts/entities/post.entity';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Weather {
@@ -21,6 +15,6 @@ export class Weather {
   @Column()
   code: number;
 
-  @OneToOne(() => Post, (post) => post.weather)
-  post: Post;
+  @OneToOne(() => Posts, (post) => post.weather)
+  post: Posts;
 }

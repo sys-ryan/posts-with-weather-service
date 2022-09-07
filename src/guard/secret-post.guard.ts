@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Post } from 'src/posts/entities/post.entity';
+import { Posts } from 'src/posts/entities/post.entity';
 
 @Injectable()
 /**
@@ -10,7 +10,7 @@ import { Post } from 'src/posts/entities/post.entity';
  */
 export class SecretPostGuard implements CanActivate {
   constructor(
-    @InjectRepository(Post) private postReposotiry: Repository<Post>,
+    @InjectRepository(Posts) private postReposotiry: Repository<Posts>,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
