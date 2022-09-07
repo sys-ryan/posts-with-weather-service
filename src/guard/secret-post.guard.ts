@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Posts } from 'src/posts/entities/post.entity';
+import { Posts } from '../posts/entities/post.entity';
 
 @Injectable()
 /**
