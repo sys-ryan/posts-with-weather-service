@@ -197,7 +197,7 @@ post-with-weather-service/
 
 # 서비스 배포 🌎
 
-> 배포 정보 작성
+> 배포 url
 
 👉 https://posts-with-weather-service.herokuapp.com/api/v1
 
