@@ -2,6 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { of, lastValueFrom } from 'rxjs';
 import { Repository } from 'typeorm';
 import { Posts } from '../posts/entities/post.entity';
 import { Weather } from './entities/weather.entity';
@@ -39,11 +40,35 @@ const mockPostRepository = () => {
 };
 
 const mockConfigService = () => ({
-  get: jest.fn(),
+  get: jest.fn(() =>
+    of({
+      text: 'Sunny',
+      icon: '//cdn.weatherapi.com/weather/64x64/day/113.png',
+      code: 100,
+    }),
+  ),
 });
 
 const mockHttpService = () => ({
   get: jest.fn(),
+});
+
+jest.mock('rxjs', () => {
+  const original = jest.requireActual('rxjs');
+  return {
+    ...original,
+    lastValueFrom: () => {
+      return {
+        data: {
+          current: {
+            text: 'Sunny',
+            icon: '//cdn.weatherapi.com/weather/64x64/day/113.png',
+            code: 1000,
+          },
+        },
+      };
+    },
+  };
 });
 
 describe('WeatherService', () => {
@@ -79,5 +104,9 @@ describe('WeatherService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('날씨 정보를 Weather API로부터 성공적으로 fecth 한다.', async () => {
+    const data = await service.fetchWeather('30', '127');
   });
 });
