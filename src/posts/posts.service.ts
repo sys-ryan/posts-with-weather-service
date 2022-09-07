@@ -5,7 +5,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Posts } from './entities/post.entity';
 import * as bcrypt from 'bcrypt';
-import { WeatherService } from 'src/weather/weather.service';
+import { WeatherService } from '../weather/weather.service';
 
 export interface PostsList {
   data: Posts[];
@@ -129,12 +129,6 @@ export class PostsService {
     }
     if (updatePostDto.content) {
       post.content = updatePostDto.content;
-    }
-    if (updatePostDto.password) {
-      // 수정된 게시글 비밀번호 암호화
-      const saltOrRounds = 10;
-      const password = await bcrypt.hash(updatePostDto.password, saltOrRounds);
-      post.password = password;
     }
 
     await this.postRepository.save(post);
