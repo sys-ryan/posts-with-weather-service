@@ -1,4 +1,4 @@
-# 날씨 정보를 함께 제공하는 비회원 게시글 백엔드 서비스
+# 날씨 정보를 함께 제공하는 비회원 게시글 백엔드 서비스 🌦
 
 | 👉 목차                            |                                        |
 | ---------------------------------- | -------------------------------------- |
@@ -24,7 +24,7 @@
 - 외부 API를 사용하여, 사용자가 게시글을 업로드한 시점의 날씨 정보가 게시글에 포함됩니다.
   - 게시글 작성 시 자동으로 데이터베이스에 추가되고, 수정은 불가능합니다.
 
-# 요구사항 분석
+# 요구사항 분석 🧐
 
 ## 1. 게시글 생성
 
@@ -55,7 +55,7 @@ swagger를 사용하여 제작한 API Docs
 
 [👉 Swagger Docs 바로가기](https://app.swaggerhub.com/apis-docs/SYSRYAN0902/posts-with-weather-service-docs/1.0)
 
-# 구현 과정
+# 구현 과정 🛠
 
 ## 기술 스택
 
@@ -115,17 +115,17 @@ post-with-weather-service/
 - 게시글 비밀번호 기능 추가
 - 게시글 수정/삭제 기능 구현
 - 게시글 비밀번호 Guard 수정
-- 게시글 조회 기능 추가 구현
-- 게시글에 사용자가 게시글을 업로드한 시점의 날씨 포함
+⭐️ 게시글 조회 기능 추가 구현
+⭐️ 게시글에 사용자가 게시글을 업로드한 시점의 날씨 포함
 - Swagger Documentation 코드 추가
 - 프로젝트 전체 주석 확인 및 보충
 - Readme.md 작성
-- Weather Service Unit 테스트
-- Posts Service Unit 테스트
-- e2e 테스트
-- 배포
+⭐️ Weather Service Unit 테스트
+⭐️ Posts Service Unit 테스트
+⭐️ e2e 테스트
+⭐️ 배포
 
-# 테스트
+# 테스트 🧪
 
 ## Unit Test
 
@@ -195,7 +195,7 @@ post-with-weather-service/
 
 <img width="795" alt="스크린샷 2022-09-07 오후 7 13 36" src="https://user-images.githubusercontent.com/63445753/188853406-7738688e-b796-4a26-ad48-cecf627fe0a9.png">
 
-# 서비스 배포
+# 서비스 배포 🌎
 
 > 배포 정보 작성
 
