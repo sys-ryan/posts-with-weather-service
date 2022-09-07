@@ -1,74 +1,159 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 날씨 정보를 함께 제공하는 비회원 게시글 백엔드 서비스
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+| 👉 목차                            |                                        |
+| ---------------------------------- | -------------------------------------- |
+| [1. 요구사항 분석](#요구사항-분석) | 각 요구사항 분석                       |
+| [2. API 명세서](#API-명세서)       | swagger url                            |
+| [3. 구현 과정](#구현-과정)         | 기술스택, 모델링, 폴더 구조, 역할 분담 |
+| [4. 테스트](#테스트)               | 각 서비스 unit test                    |
+| [5. 서비스 배포](#서비스-배포)     | service url                            |
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+회원가입/로그인 없이 사용자가 게시글을 올리고 게시글에 비밀번호를 설정할 수 있는 게시판 백엔드 서비스입니다.  
+이 서비스의 특별한 점은 게시글이 생성될 때 [Weather API](https://www.weatherapi.com/)를 사용하여 게시글 생성 시점의 날씨 정보를 함께 제공한다는 점 입니다.
 
-## Description
+- 사용자는 게시글을 올릴 수 있습니다.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+  - 게시글 제목과 본문은 모두 이모지를 포함할 수 있습니다.
+  - 사용자가 게시글을 올릴 때 비밀번호를 설정할 수 있습니다.
+  - 게시글 수정/삭제시 비밀번호가 필요합니다.
 
-## Installation
+- 사용자는 한 페에지 내에서 게시글을 최신 글 순서로 확인할 수 있습니다.
 
-```bash
-$ npm install
+  - 게시글은 20개 단위로 로드되며, 사용자가 앱이나 웹에서 스크롤을 내릴 때마다 오래된 글들이 추가로 로드됩니다.
+
+- 외부 API를 사용하여, 사용자가 게시글을 업로드한 시점의 날씨 정보가 게시글에 포함됩니다.
+  - 게시글 작성 시 자동으로 데이터베이스에 추가되고, 수정은 불가능합니다.
+
+# 요구사항 분석
+
+## 1. 게시글 생성
+
+- 게시글은 `id`, `제목`, `내용`, `비밀번호`, `날씨정보`, `생성시간`, `수정시간`으로 구성된다
+- `제목` 과 `내용` 은 이모지를 포함할 수 있다.
+- `제목`은 최대 20자로 서버에서 제한해야 한다.
+- `내용`은 최대 200자로 서버에서 제한해야 한다.
+- `비밀번호`는 6자 이상이어야 하고, 숫자 1개 이상을 반드시 포함한다.
+- `비밀번호`는 데이터베이스에 암호화 된 형태로 저장된다.
+- `날씨정보`는 사용자가 게시글을 업로드한 시점의 날씨 정보가 게시글에 포함되도록 한다.
+- `날씨정보`는 게시글 작성시 자동으로 데이터베이스에 추가되고, 수정은 불가능하도록 한다.
+
+## 2. 게시글 조회
+
+- 사용자는 게시글을 최신 글 순서로 확인할 수 있다.
+- 사용자가 웹에서 스크롤을 내릴 때마다 오래된 게시글들이 계속 로드 되는 형태로 API를 작성한다. (Pagenation)
+  - 게시글이 중복으로 나타나지 않도록 한다.
+  - 추가 로드는 20개 단위로 한다.
+
+## 3. 게시글 수정/삭제
+
+- 게시글 수정/삭제시 게시글에 설정되어 있는 비밀번호를 제출해야 한다.
+- 비밀번호가 일치하는 경우에만 게시글에 대한 수정/삭제 작업을 진행할 수 있다.
+
+# API 명세서
+
+swagger를 사용하여 제작한 API Docs
+
+[👉 Swagger Docs 바로가기]() /// 수정 필요
+
+# 구현 과정
+
+## 기술 스택
+
+- Framework: `NestJS`
+- Database: `AWS RDS - mysql`
+- ORM: `TypeORM`
+
+## 환경 세팅
+
+### 모델링
+
+> 데이터베이스는 AWS RDS - mysql로 생성했습니다.
+
+<img width="790" alt="스크린샷 2022-09-07 오후 12 19 40" src="https://user-images.githubusercontent.com/63445753/188781262-29a75e5a-5177-4c4c-bb07-76eef6c89c49.png">
+
+
+
+
+
+
+### 폴더 구조
+
+```
+post-with-weather-service/
+├─ src/
+│  ├─ database/
+│  │  ├─ database.module.ts
+│  ├─ guard/
+│  ├─ interceptors/
+│  ├─ posts/
+│  ├─ weather/
+│  ├─ app.module.ts
+│  ├─ app.controller.ts
+│  ├─ app.service.ts
+│  ├─ main.ts
+├─ test/
+├─ nest-cli.json
+├─ package-lock.json
+├─ package.json
+├─ tsconfig.json
 ```
 
-## Running the app
+- posts, weather 폴더를 나누고, DTO 및 Entity를 작성하여 테이블 생성
 
-```bash
-# development
-$ npm run start
+  - posts 폴더에 module, controller, service 가 정의되어 있음
+  - weather 폴더에 module, service가 정의되어 있음
 
-# watch mode
-$ npm run start:dev
+  posts.module에서 weather module을 import 하고, app module에서 posts module을 통합
 
-# production mode
-$ npm run start:prod
-```
+- guard : 인증/인가 작업을 위한 Guard 파일들을 저장
 
-## Test
+- interceptors: response data serialization 적용
 
-```bash
-# unit tests
-$ npm run test
+- test: e2e 테스트
 
-# e2e tests
-$ npm run test:e2e
+## 작업 내역 🧑‍💻
 
-# test coverage
-$ npm run test:cov
-```
+- 서버 초기 세팅
+- 게시글 생성, 조회 API 구현
+- 게시글 비밀번호 기능 추가
+- 게시글 수정/삭제 기능 구현
+- 게시글 비밀번호 Guard 수정
+- 게시글 조회 기능 추가 구현
+- 게시글에 사용자가 게시글을 업로드한 시점의 날씨 포함
+- Swagger Documentation 코드 추가
+- 프로젝트 전체 주석 확인 및 보충
+- Readme.md 작성
+- Weather Service Unit 테스트 // 작업중
+- Posts Service Unit 테스트 // 작업중
+- e2e 테스트 // 작업중
+- 배포 // 작업중
 
-## Support
+# 테스트
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Unit Test
 
-## Stay in touch
+### 테스트 커버리지
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Weather service
 
-## License
+// 내역 입력
 
-Nest is [MIT licensed](LICENSE).
-# posts-with-weather-service
+#### Posts service
+
+// 내역 입력
+
+### 테스트 결과
+
+#### Weather service
+
+// 캡쳐 이미지
+
+#### Posts Service
+
+// 캡쳐 이미지
+
+# 서비스 배포
+
+> 배포 정보 작성
+
+👉 //url
