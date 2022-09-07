@@ -100,7 +100,7 @@ post-with-weather-service/
   - posts 폴더에 module, controller, service 가 정의되어 있음
   - weather 폴더에 module, service가 정의되어 있음
 
-  posts.module에서 weather module을 import 하고, app module에서 posts module을 통합
+  posts module에서 weather module을 import 하고, app module에서 posts module을 통합
 
 - guard : 인증/인가 작업을 위한 Guard 파일들을 저장
 
