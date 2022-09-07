@@ -28,6 +28,5 @@ export class UpdatePostDto {
   @ApiProperty({ description: '게시글 비밀번호' })
   @IsString()
   @Matches(/^(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{6,20}$/)
-  @IsOptional()
   password: string;
 }
